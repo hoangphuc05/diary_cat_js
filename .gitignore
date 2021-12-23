@@ -1,6 +1,10 @@
 # Config
 config.json
 
+# SQLite database
+*.db
+db_convert/
+
 # Logs
 logs
 *.log
