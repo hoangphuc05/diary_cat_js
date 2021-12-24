@@ -1,6 +1,9 @@
 # Config
 config.json
 
+# test files
+test.js
+
 # SQLite database
 *.db
 db_convert/
