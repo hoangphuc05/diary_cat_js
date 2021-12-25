@@ -1,7 +1,9 @@
 // Require the necessary discord.js classes
-const fs = require('fs');
-const { Client, Intents, Collection } = require('discord.js');
-const { token, prefix } = require('./config.json');
+import fs from 'fs';
+import { Client, Intents, Collection } from 'discord.js';
+import { createRequire } from "module";
+const require = createRequire(import.meta.url); 
+const { token, prefix } = require ('./config.json');
 
 // Create a new client instance
 const myIntents = new Intents();
@@ -17,24 +19,24 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 
 
 for (const file of messageCommandFiles) {
-    const command = require(`./message_commands/${file}`);
-
-    client.messageCommands.set(command.name, command);
+    const command = await import(`./message_commands/${file}`);
+    client.messageCommands.set(command.default.name, command.default);
 }
 
 for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
+    const command = await import(`./commands/${file}`);
     // set a new item in the Collection
     // With the key as the command name and the value as the exported module
-    client.commands.set(command.data.name, command);
+    client.commands.set(command.default.data.name, command.default);
 }
 
 for (const file of eventFiles) {
-	const event = require(`./events/${file}`);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
+	const cimport = await import(`./events/${file}`);
+    const command = cimport.default;
+	if (command.once) {
+		client.once(command.name, (...args) => command.execute(...args));
 	} else {
-		client.on(event.name, (...args) => event.execute(...args));
+		client.on(command.name, (...args) => command.execute(...args));
 	}
 }
 
