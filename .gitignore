@@ -1,5 +1,6 @@
 # Config
 config.json
+aws_config.json
 
 # test files
 test.js
@@ -8,6 +9,8 @@ test.js
 *.db
 db_convert/
 
+# trash
+trash/
 # Logs
 logs
 *.log
