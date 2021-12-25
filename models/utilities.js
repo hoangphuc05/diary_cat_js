@@ -1,5 +1,7 @@
-const Sequelize = require('sequelize');
-const {db_host, db_username, db_password, db_database, reset_limit, add_limit} = require('./config.json');
+import Sequelize from 'sequelize';
+import { createRequire } from "module";
+const require = createRequire(import.meta.url); 
+const {db_host, db_username, db_password, db_database, reset_limit, add_limit} = await require('../config.json');
 
 
 const sequelize = new Sequelize(db_database, db_username, db_password, {
@@ -9,43 +11,48 @@ const sequelize = new Sequelize(db_database, db_username, db_password, {
 });
 
 
+import {default as de} from './daily_entry.js';
+export const daily_entry = de(sequelize, Sequelize.DataTypes);
 
-const daily_entry = require('./daily_entry.js')(sequelize, Sequelize.DataTypes);
-const last_time = require('./last_time.js')(sequelize, Sequelize.DataTypes);
-const reminder = require('./reminder.js')(sequelize, Sequelize.DataTypes);
+import {default as lt} from './last_time.js';
+export const last_time = lt(sequelize, Sequelize.DataTypes);
 
-console.log(last_time.findOne({
-    where: {id:"343046183088029696"}
-}))
+import {default as r} from './reminder.js';
+export const reminder = r(sequelize, Sequelize.DataTypes);
 
-const addEntry = async (author, message, url, name, channel) => {
+// console.log(last_time.findOne({
+//     where: {id:"343046183088029696"}
+// }))
+
+export const addEntry = async (author, message, url, name, channel) => {
     let streak_value;
     // find thhe steak or create a new one
-    const streak = await last_time.findOne({
+    const user_last_time = await last_time.findOne({
         where: {id: author}
     })
 
     // if there's a streak, check if it need to be reset by the time
-    if (streak){
-        const last_time = streak.time;
+    if (user_last_time){
+        const last_time = user_last_time.time;
         const current_time = new Date().getTime();
         const time_difference = current_time - last_time;
         console.log(time_difference > reset_limit) ;
         // if the difference is greater than the reset limit, reset the streak and set the current time
-        streak.time = current_time;
+        user_last_time.time = current_time;
         if (time_difference < add_limit){
-            console.log("nothing is done");
             //do nothing with the streak
         }
         else if (time_difference > reset_limit){
-            console.log("reset called");
-            streak.streak = 1;
-            streak.save();
+            // console.log("reset called");
+            user_last_time.streak = 1;
+            user_last_time.save();
         } else {
-            streak.streak += 1;
-            streak.save();
+            user_last_time.streak += 1;
+            user_last_time.save();
         }
-        streak_value = streak.streak;
+        streak_value = user_last_time.streak;
+        user_last_time.time = current_time; //save the current time regardless
+        user_last_time.save();
     } // if there's no streak, create a new one
     else {
         await last_time.create({
@@ -72,5 +79,5 @@ const addEntry = async (author, message, url, name, channel) => {
 // Reflect.defineProperty(daily_entry.prototype, 'addEntry',{
 //     value: async function 
 // })
-
-module.exports = { daily_entry, last_time, reminder, addEntry };
+// export const addEntry = addEntry;
+// module.exports = { daily_entry, last_time, reminder };
