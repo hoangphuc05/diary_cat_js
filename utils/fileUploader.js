@@ -44,7 +44,7 @@ const uploadFile = async (discordUrl) => {
                 response.on('error', (err) => {
                     cleanup();
                     // console.log(err);
-                    resolve(null);
+                    return resolve(null);
                 });
             });
 
