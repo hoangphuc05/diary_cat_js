@@ -7,9 +7,12 @@ export default {
     description: 'Add a new entries',
     async execute(message, args) {
         
+        //send typing indicator
+        message.channel.sendTyping();
+
         const author = message.author.id;
         const channel = message.channelId;
-        const message_content = message.content.substr(message.content.indexOf(' ') + 1);
+        const message_content = message.content.indexOf(' ')===-1?"":message.content.substr(message.content.indexOf(' ') + 1);
         const current_time = new Date().getTime();
 
         // find the last time the user posted
@@ -31,10 +34,10 @@ export default {
                 const url = await uploadFile(attachment.url);
                 // create the entry
                 // console.log("url is", url);
-                streak_value = await addEntry(author, message_content, url, current_time, channel);
+                streak_value = await addEntry(author, message_content, url, message.author.username, message.channelId);
             }
         } else {
-            streak_value = await addEntry(author, message_content, 'None', current_time, channel);
+            streak_value = await addEntry(author, message_content, 'None', message.author.username, message.channelId);
         }
         // console.log(message.attachments.size);
         // reply with the streak
