@@ -4,7 +4,7 @@ import confirm_embed from '../utils/confirm_embed.js';
 
 
 export default {
-    name: 'add',
+    name: 'addtext',
     description: 'Add a new entries',
     async execute(message, args) {
         
@@ -21,6 +21,10 @@ export default {
         last_time = last_time.time;
         console.log("last time is:" , last_time);
 
+        // if last time is too recent, ask for confirmation
+        // if (last_time){
+        // if confirm is yes, or if last time is normal, continue
+
         //check if there's any content in the message
         if (message_content === "" && message.attachments.size === 0){
             message.channel.send("You need to enter some content or attach a file to post");
@@ -31,6 +35,12 @@ export default {
 
         // upload the picture to AWS and get the link to it
         if (message.attachments.size > 0){
+            // confirm with the user that they want to add entry with no picture
+            const confirm = await confirm_embed("Picure included", "Are you sure you want to add this entry WITH a picture?", "use `dl!add` to skip this", message);
+            if (!confirm){
+                message.reply("No entry is added");
+                return;
+            }
             // loop through the attachments
             for (const [id, attachment] of message.attachments){
                 console.log(attachment);
@@ -43,12 +53,7 @@ export default {
                 }
             }
         } else {
-            // confirm with the user that they want to add entry with no picture
-            const confirm = await confirm_embed("No picture attached!", "Are you sure you want to add this entry without a picture?", "use `dl!addText` to skip this", message);
-            if (!confirm){
-                message.reply("No entry is added");
-                return;
-            }
+            
             streak_value = await addEntry(author, message_content, 'None', message.author.username, message.channelId);
         }
         // console.log(message.attachments.size);
