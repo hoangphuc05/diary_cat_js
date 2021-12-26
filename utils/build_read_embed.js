@@ -24,7 +24,7 @@ export default async (entry_model) => {
     }
 
     // divide the message into chunks of 1023 characters
-    const message_chunks = entry_model.message.match(/.{1,1023}/g)|[]; // if there's no message, then return empty array
+    const message_chunks = entry_model.message==""? []:entry_model.message.match(/.{1,1023}/g); // if there's no message, then return empty array
     for (let i = 0; i < message_chunks.length; i++){
         diary_embed.addField(`Note ${i+1}`, `${message_chunks[i]}`);
     }
