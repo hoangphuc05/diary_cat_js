@@ -1,10 +1,10 @@
 import { MessageEmbed } from "discord.js"
 
-export default async (title = "confirm box", message = "Do you want to continue", userMessage) => {
+export default async (title = "confirm box", message = "Do you want to continue", footer="Confirm box", userMessage) => {
     const embed = new MessageEmbed()
         .setTitle(title)
         .setDescription(message)
-        .setFooter("Confirm box")
+        .setFooter(footer)
         .setTimestamp()
     
     let confirmMessage = await userMessage.channel.send({embeds: [embed]});
