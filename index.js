@@ -4,6 +4,7 @@ import { Client, Intents, Collection } from 'discord.js';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url); 
 const { token, prefix } = require ('./config.json');
+import remindLoop from './loop/reminder.js';
 
 // Create a new client instance
 const myIntents = new Intents();
@@ -47,7 +48,6 @@ client.on('messageCreate', async message =>{
 
     const args = message.content.slice(prefix.length).trim().split(' ');
     const command = args.shift().toLocaleLowerCase(); //get the command in the first element and get rid of it from the args array
-
     if (!client.messageCommands.has(command)) return;
 
     try {
@@ -81,6 +81,19 @@ client.on('interactionCreate', async interaction => {
         });
     }
 });
+
+client.on("ready", () => {
+    remindLoop(client);
+
+    // setInterval(() => {
+    //     remindLoop(client);
+    // },60000);
+    // setInterval(() => {
+    //     client.channels.fetch('827819975167311892').then(channel => {
+    //         channel.send(`a`);
+    //     }).catch(console.error);
+    // }, 5000);
+})
 
 // Login to Discord with your client's token
 client.login(token);

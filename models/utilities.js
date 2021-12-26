@@ -4,7 +4,7 @@ const require = createRequire(import.meta.url);
 const {db_host, db_username, db_password, db_database, reset_limit, add_limit} = await require('../config.json');
 
 
-const sequelize = new Sequelize(db_database, db_username, db_password, {
+export const sequelize = new Sequelize(db_database, db_username, db_password, {
     host: db_host,
     dialect: 'mysql',
 
@@ -20,11 +20,23 @@ export const last_time = lt(sequelize, Sequelize.DataTypes);
 import {default as r} from './reminder.js';
 export const reminder = r(sequelize, Sequelize.DataTypes);
 
+import {default as rs} from './remind_string.js';
+export const remind_string = rs(sequelize, Sequelize.DataTypes);
+
 // console.log(last_time.findOne({
 //     where: {id:"343046183088029696"}
 // }))
 
+// create associations
+// reminder.belongsTo(daily_entry, {foreignKey: 'id'});
+
 export const addEntry = async (author, message, url, name, channel) => {
+
+    // if url is null, entry should be ignored
+    if (url == null){
+        return -1;
+    }
+    
     let streak_value;
     // find thhe steak or create a new one
     const user_last_time = await last_time.findOne({
