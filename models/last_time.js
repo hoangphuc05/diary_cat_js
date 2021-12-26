@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
             primaryKey: true,
         },
         time: {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         streak: {
