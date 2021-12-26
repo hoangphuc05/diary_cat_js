@@ -33,7 +33,7 @@ const uploadFile = async (discordUrl) => {
                     const imgType = imageType(buffer);
                     if (!imgType) {
                         cleanup();
-                        resolve(null);
+                        return resolve(null);
                     }
                     return s3Upload(path, imgType.ext).then(fileKey => {
                         cleanup();
