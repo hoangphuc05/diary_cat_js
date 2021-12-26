@@ -11,6 +11,7 @@ import {v4} from'uuid';
 dotenv.config();
 const s3Client = new S3Client({ "region":process.env.AWS_REGION });
 
+export {s3Client};
 
 
 const s3Upload = async (filepath, fileType) => {
