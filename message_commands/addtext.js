@@ -6,6 +6,7 @@ import confirm_embed from '../utils/confirm_embed.js';
 export default {
     name: 'addtext',
     description: 'Add a new entries',
+    aliases: ['addtextanyway'],
     async execute(message, args) {
         
         //send typing indicator

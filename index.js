@@ -22,6 +22,13 @@ const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'
 for (const file of messageCommandFiles) {
     const command = await import(`./message_commands/${file}`);
     client.messageCommands.set(command.default.name, command.default);
+
+    // check if the command has aliases and add it to the collection
+    if (command.default.aliases && command.default.aliases.length > 0) {
+        for (const alias of command.default.aliases) {
+            client.messageCommands.set(alias, command.default);
+        }
+    }
 }
 
 for (const file of commandFiles) {
