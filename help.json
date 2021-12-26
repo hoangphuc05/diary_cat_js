@@ -1,0 +1,21 @@
+{
+    "title": "**Diary Cat Command List**",
+    "description": "Welcome to Diary Cat!\n You can get start by using `dl!add [you diary entry]` and then `dl!read` to read your diary.\n\n**You can now direct message the bot with these commands for privacy**\n\nUse `dl!help [command]` to learn more about a specific command.You need further support? Join our [support server](https://discord.gg/shuJ8A3Ced)",
+    "fields":[
+        {
+            "inline": false,
+            "name": "\n📝 **Add diary entry**",
+            "value": "`dl!add [a note] [attach a picture]` : add an entry to your diary!\n`dl!addText [a note]` : add an entry with no picture."
+        },
+        {
+            "inline": false,
+            "name": "\n📖 **Read your diary**",
+            "value": "`dl!read` : see all of your diary entries!\n`dl!delete` : show instruction to delete an entry."
+        },
+        {
+            "inline": false,
+            "name": "⚙️ **Setting and misc**",
+            "value": "`dl!feedback` : send an anonymous feedback to the owner.\n`dl!remindOn` - `dl!remindOff` : turn on or off the reminder, default is on.\n`dl!invite` : get the link to invite this bot to different server.\n`dl!help [name of the command]` : get specific help about that command.\n`dl!viewAnnouncement` : see the newest announcement."
+        }
+    ]
+}

@@ -83,7 +83,7 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.on("ready", () => {
-    remindLoop(client);
+    // remindLoop(client);
 
     // setInterval(() => {
     //     remindLoop(client);
