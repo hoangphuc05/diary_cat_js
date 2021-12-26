@@ -32,11 +32,11 @@ export default {
 
         // try to delete the s3 object, continue with deleting from the database anyway
         try {
-            await s3Delete(daily_entry.image_url);
+            await s3Delete(daily_entry.url);
         } catch (error) {
             console.log(error);
         }
-        
+
         // delete the entry
         await daily_db.destroy({where: {id: entry_id, author: author}});
         message.reply(`Entries delete successfully!\nuse \`dl!read\` to view your updated diary.`);

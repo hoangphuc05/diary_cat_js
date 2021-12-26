@@ -37,6 +37,7 @@ const s3Upload = async (filepath, fileType) => {
 }
 
 const s3Delete = async (fileKey) => {
+    console.log("delete file:", fileKey);
     const params = {
         Bucket: 'diary-bot',
         Key: fileKey
