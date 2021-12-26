@@ -18,7 +18,7 @@ export default async (entry_model, userMessage) => {
     // get the first 1020 characters of the message
     const previewMessage = entry_model.message==""? "":entry_model.message.substring(0,1015); // if there's no message, then return empty array
     if (previewMessage.length > 0){
-        diary_embed.addField(`Note`, `${previewMessage}`);
+        diary_embed.addField(`Note`, `${previewMessage}[...]`);
     }
 
     // get the url of the picture
