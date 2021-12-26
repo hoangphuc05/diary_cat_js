@@ -1,0 +1,13 @@
+{
+    "prefix": "dl!", // bot prefix
+    "guildId": "guildId for testing",
+    "clientId": "your client id",
+    "token": "bot token here",
+    "db_host": "database host",
+    "db_port": "database port",
+    "db_username": "database username",
+    "db_password": "database password",
+    "db_database": "database name",
+    "reset_limit": 216000, // amoung of time streak is reset
+    "add_limit": 64800 // amount of time before new streak is added
+}
