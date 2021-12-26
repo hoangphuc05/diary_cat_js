@@ -51,6 +51,7 @@ export const addEntry = async (author, message, url, name, channel) => {
             user_last_time.save();
         }
         streak_value = user_last_time.streak;
+        user_last_time.channel = channel;
         user_last_time.time = current_time; //save the current time regardless
         user_last_time.save();
     } // if there's no streak, create a new one
