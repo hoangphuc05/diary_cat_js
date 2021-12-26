@@ -1,6 +1,8 @@
 import {daily_entry as daily_db} from './../models/utilities.js';
-
 import build_embed from '../utils/build_read_embed.js';
+import { createRequire } from "module";
+const require = createRequire(import.meta.url); 
+const { token, prefix } = require ('./../config.json');
 
 export default {
     name: 'read',
@@ -39,7 +41,7 @@ export default {
                     current_daily_index = 0;
                 }
             } else if (reaction.emoji.name === '❌'){
-                botMessage.reply(`To delete this message, use command \`dl!delete ${daily_entries[current_daily_index].id}\``);
+                botMessage.reply(`To delete this entry, use command:\n \`\`\`cpp\n${prefix}delete ${daily_entries[current_daily_index].id}\`\`\`\nIf you don't want to delete this entry, just ignore this message!\n**Warning: This action is irreversible**`);
             }
 
             // try to remove the reaction

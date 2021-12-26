@@ -48,7 +48,7 @@ export default {
             }
         } else {
             // confirm with the user that they want to add entry with no picture
-            const confirm = await confirm_embed("No picture attached!", "Are you sure you want to add this entry without a picture?", message);
+            const confirm = await confirm_embed("No picture attached!", "Are you sure you want to add this entry without a picture?", "use `dl!addText` to skip this", message);
             if (!confirm){
                 message.reply("No entry is added");
                 return;
