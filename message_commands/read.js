@@ -1,6 +1,6 @@
 import {daily_entry as daily_db} from './../models/utilities.js';
 
-import build_embed from '../utils/build_embed.js';
+import build_embed from '../utils/build_read_embed.js';
 
 export default {
     name: 'read',
@@ -10,7 +10,7 @@ export default {
         
         let daily_entries = await daily_db.findAll({where: {author: author}});
         let current_daily_index = daily_entries.length - 1;
-        let embed = build_embed(daily_entries[current_daily_index]);
+        let embed = await build_embed(daily_entries[current_daily_index]);
         let botMessage = await message.channel.send({embeds: [embed]});
 
         // add reactions
@@ -26,7 +26,7 @@ export default {
         }
         const collector = botMessage.createReactionCollector( {filter,idle: 300000});
 
-        collector.on('collect', (reaction, user) => {
+        collector.on('collect', async (reaction, user) => {
             // read the reaction and increase or decrease the index, if it is out of bound, wrap around
             if (reaction.emoji.name === '⬅️'){
                 current_daily_index = current_daily_index - 1;
@@ -50,7 +50,7 @@ export default {
             }
 
             // update the embed
-            embed = build_embed(daily_entries[current_daily_index]);
+            embed = await build_embed(daily_entries[current_daily_index]);
             botMessage.edit({embeds: [embed]});
             
         });
