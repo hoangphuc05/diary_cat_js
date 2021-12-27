@@ -20,7 +20,7 @@ const uploadFile = async (discordUrl) => {
         //https://stackoverflow.com/questions/10865347/node-js-get-file-extension
         // var result = Path.extname(Url.parse(url).pathname); // '.jpg'
 
-        const {fd, path, cleanup} = await file({ dir: './tmp-diary-bot'});
+        const {fd, path, cleanup} = await file();
 
         const fileStream = fs.createWriteStream(path);
         const request = await new Promise((resolve, reject) => {
