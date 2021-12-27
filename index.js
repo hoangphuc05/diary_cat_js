@@ -106,9 +106,13 @@ client.on('interactionCreate', async interaction => {
 client.on("ready", () => {
     // remindLoop(client);
 
-    // setInterval(() => {
-    //     remindLoop(client);
-    // },60000);
+    setInterval(() => {
+        try{
+            remindLoop(client); // try catch this as I don't trust myself
+        } catch (error) {
+            console.log(error);
+        }
+    },60000);
     // setInterval(() => {
     //     client.channels.fetch('827819975167311892').then(channel => {
     //         channel.send(`a`);

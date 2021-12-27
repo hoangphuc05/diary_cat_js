@@ -53,6 +53,16 @@ export default async (client) => {
         client.channels.fetch(user.channel).then(channel => {
             channel.send(`${message}`);
             generalLogger("reminded user: " + user.id);
+            // find the user in reminder table and update reminded to 1
+            reminder.update({
+                reminded: 1,
+            }, {
+                where: {
+                    id: user.id,
+                }
+            }).then((result) => {
+                generalLogger("updated user: " + user.id);
+            });
         }).catch(error =>{
             // console.log("fail to get channel", user.channel);
             // generalLogger("fail to remind user: ", user.id);
