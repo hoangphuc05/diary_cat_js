@@ -14,9 +14,6 @@ const daily_entry = require('./models/daily_entry.js')(sequelize, Sequelize.Data
 const last_time = require('./models/last_time.js')(sequelize, Sequelize.DataTypes);
 const reminder = require('./models/reminder.js')(sequelize, Sequelize.DataTypes);
 
-console.log(last_time.findOne({
-    where: {id:"343046183088029696"}
-}))
 
 const addEntry = async (author, message, url, name, channel) => {
     let streak_value;
