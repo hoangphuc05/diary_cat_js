@@ -16,7 +16,7 @@ export default async (entry_model) => {
     }
 
     // get presign url and set it as url
-    if (entry_model.url !== 'None' && entry_model.url !== null){
+    if (entry_model.url !== 'none' && entry_model.url !== null){
         const presignedImageUrl = await presignUrl(entry_model.url);
         if (presignedImageUrl){
             diary_embed.setImage(presignedImageUrl);

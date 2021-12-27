@@ -22,7 +22,7 @@ export default async (entry_model, userMessage) => {
     }
 
     // get the url of the picture
-    if (entry_model.url !== 'None' && entry_model.url !== null){
+    if (entry_model.url !== 'none' && entry_model.url !== null){
         const presignedImageUrl = await presignUrl(entry_model.url);
         if (presignedImageUrl){
             diary_embed.setImage(presignedImageUrl);

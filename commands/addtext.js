@@ -11,7 +11,7 @@ export default {
                 .setRequired(true)),
     async execute(interaction) {
         const entryValue = interaction.options.getString('input');
-        const streak_value = await addEntry(interaction.user.id, entryValue, 'None', interaction.user.username, interaction.channelId);
+        const streak_value = await addEntry(interaction.user.id, entryValue, 'none', interaction.user.username, interaction.channelId);
 
         if (streak_value !== -1){
             await interaction.reply(`Your current streak is ${streak_value} days!`);

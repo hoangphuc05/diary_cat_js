@@ -50,7 +50,7 @@ export default {
                 message.reply("No entry is added");
                 return;
             }
-            streak_value = await addEntry(author, message_content, 'None', message.author.username, message.channelId);
+            streak_value = await addEntry(author, message_content, 'none', message.author.username, message.channelId);
         }
         // console.log(message.attachments.size);
         // reply with the streak
