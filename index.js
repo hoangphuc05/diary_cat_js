@@ -5,6 +5,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url); 
 const { token, prefix } = require ('./config.json');
 import remindLoop from './loop/reminder.js';
+import { messageLogger, slashLogger } from './utils/logger.js';
 
 // Create a new client instance
 const myIntents = new Intents();
@@ -50,7 +51,7 @@ for (const file of eventFiles) {
 
 // handle normal message because Discord is slow af
 client.on('messageCreate', async message =>{
-    console.log(message.content);
+    
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(' ');
@@ -58,11 +59,22 @@ client.on('messageCreate', async message =>{
     if (!client.messageCommands.has(command)) return;
 
     try {
+        
         await client.messageCommands.get(command).execute(message, args);
+        try{
+            messageLogger(command, message, args);
+        } catch (error) {
+            console.log(error);
+        }
+
     } catch (error) {
         console.error(error);
         message.reply('there was an error trying to execute that command!');
+        try{
+            messageLogger(command, message, args, 1);
+        } catch (error) {}
     }
+
 })
 
 // responnse to interaction
@@ -80,12 +92,14 @@ client.on('interactionCreate', async interaction => {
 
     try{
         await command.execute(interaction);
+        slashLogger(interaction);
     } catch (error) {
         console.error(error);
         await interaction.reply({
             content: 'There was an error trying to execute that command!',
             ephemeral: true
         });
+        slashLogger(interaction,1);
     }
 });
 
@@ -104,3 +118,5 @@ client.on("ready", () => {
 
 // Login to Discord with your client's token
 client.login(token);
+
+export {client};
