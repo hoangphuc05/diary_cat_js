@@ -1,4 +1,5 @@
 import { reminder, last_time, sequelize, remind_string } from "../models/utilities.js";
+import { generalLogger } from "../utils/logger.js";
 import { Op, QueryTypes  } from "sequelize";
 import Sequelize from 'sequelize';
 
@@ -47,12 +48,14 @@ export default async (client) => {
         // select a random remind string
         const askString =  remindString[Math.floor(Math.random() * remindString.length)];
         // build the message by inject user name into the askString
-        const message = askString.message.replace("{user}", "<@" + user.name + ">");
+        const message = askString.message.replace("{user}", "<@" + user.id + ">");
         // send the message
         client.channels.fetch(user.channel).then(channel => {
             channel.send(`${message}`);
+            generalLogger("reminded user: " + user.id);
         }).catch(error =>{
-            console.log("fail to get channel", user.channel);
+            // console.log("fail to get channel", user.channel);
+            // generalLogger("fail to remind user: ", user.id);
             // console.error(error)
         });
 

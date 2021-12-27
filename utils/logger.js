@@ -32,3 +32,9 @@ export const slashLogger = (interaction, error=0) => {
         channel.send({embeds: [embed]});
     });
 }
+
+export const generalLogger = (message, error=0) => {
+    client.channels.fetch(log_channel_id).then(channel => {
+        channel.send(message);
+    });
+}
