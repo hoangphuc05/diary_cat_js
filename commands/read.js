@@ -29,6 +29,11 @@ export default {
         // find all entries from that user
         // console.log(interaction.user);
         let daily_entries = await daily_db.findAll({where: {author: interaction.user.id}});
+        if (daily_entries.length === 0){
+            await interaction.reply('You have no entries yet! Use `/add` to write your first entry.');
+            return;
+        }
+
         let current_daily_index = daily_entries.length - 1;
         let embed = await build_embed(daily_entries[current_daily_index]);
         

@@ -1,4 +1,4 @@
-import {daily_entry as daily_db} from './../models/utilities.js';
+import {daily_entry as daily_db, daily_entry} from './../models/utilities.js';
 import build_embed from '../utils/build_read_embed.js';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url); 
@@ -11,6 +11,10 @@ export default {
         const author = message.author.id;
         
         let daily_entries = await daily_db.findAll({where: {author: author}});
+        if (daily_entries.length === 0){
+            message.reply(`You don't have any entries yet! Use \`${prefix}add\` to write your first entry.`);
+            return;
+        }
         let current_daily_index = daily_entries.length - 1;
         let embed = await build_embed(daily_entries[current_daily_index]);
         let botMessage = await message.channel.send({embeds: [embed]});
