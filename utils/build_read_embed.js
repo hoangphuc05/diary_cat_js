@@ -11,6 +11,7 @@ export default async (entry_model) => {
     // check if string is unix timestamp
     if (!entry_model.date.toString().includes('-')){
         diary_embed.setTitle(`<t:${Math.floor(parseInt(entry_model.date)/1000)}:D>`)
+
     } else {
         diary_embed.setTitle(`<t:${Math.floor(DateTime.fromFormat(entry_model.date, "dd-MM-yyyy").toMillis()/1000)}:D>`)
     }

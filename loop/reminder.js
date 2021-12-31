@@ -5,7 +5,7 @@ import Sequelize from 'sequelize';
 
 export default async (client) => {
     // get 24 hour ago in unix timestamp
-    const remindTime = new Date().getTime() - (24*60*60*1000);
+    const remindTime = Math.floor((new Date().getTime() - (24*60*60*1000))/1000);
 
     // get all remind string that are enabled
     const remindString = await remind_string.findAll({

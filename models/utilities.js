@@ -45,10 +45,15 @@ export const addEntry = async (author, message, url, name, channel) => {
 
     // if there's a streak, check if it need to be reset by the time
     if (user_last_time){
+        // find the reminder of that user
+        const user_reminder = await reminder.findOne({
+            where: {id: author}
+        })
         const last_time = user_last_time.time;
-        const current_time = new Date().getTime();
+        const current_time = Math.floor(new Date().getTime()/1000);
+        // console.log("Current time is: " + current_time);
         const time_difference = current_time - last_time;
-        console.log(time_difference > reset_limit) ;
+        // console.log(time_difference > reset_limit) ;
         // if the difference is greater than the reset limit, reset the streak and set the current time
         user_last_time.time = current_time;
         if (time_difference < add_limit){
@@ -66,6 +71,19 @@ export const addEntry = async (author, message, url, name, channel) => {
         user_last_time.channel = channel;
         user_last_time.time = current_time; //save the current time regardless
         user_last_time.save();
+        
+        // if reminder exist, set reminded to 0
+        if (user_reminder){
+            user_reminder.reminded = 0;
+            user_reminder.save();
+        } // if reminder doesn't exist, create one
+        else {
+            const new_reminder = await reminder.create({
+                id: author,
+                reminded: 0,
+                remind_switch: 1
+            });
+        }
     } // if there's no streak, create a new one
     else {
         await last_time.create({
