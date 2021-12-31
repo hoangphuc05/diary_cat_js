@@ -9,6 +9,9 @@ test.js
 *.db
 db_convert/
 
+# key
+key/
+
 # trash
 trash/
 ignoreme/
