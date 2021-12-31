@@ -1,35 +1,12 @@
 import { MessageEmbed } from "discord.js"
 import { presignUrl } from "./presignUrl.js";
 import {DateTime} from 'luxon';
+import deleteEmbed from "./build_delete_embed.js";
 
 
 export default async (entry_model, userMessage) => {
-    const diary_embed = new MessageEmbed()
-        .setTitle("Entry delete confirm")
-        .setDescription(`Please confirm you want to delete this entries`)
-        // .setURL(entry_model.url)
-        .setFooter(`React ✅ to delete, ❌ to keep.`)
-        
-    // set the time
-    if (!entry_model.date.toString().includes('-')){
-        diary_embed.addField(`Date added`,`<t:${Math.floor(parseInt(entry_model.date)/1000)}:D>`)
-    } else {
-        diary_embed.addField(`Date added`,`<t:${Math.floor(DateTime.fromFormat(entry_model.date, "dd-MM-yyyy").toMillis()/1000)}:D>`)
-    }
-
-    // get the first 1020 characters of the message
-    const previewMessage = entry_model.message==""? "":entry_model.message.substring(0,1015); // if there's no message, then return empty array
-    if (previewMessage.length > 0){
-        diary_embed.addField(`Note`, `${previewMessage}[...]`);
-    }
-
-    // get the url of the picture
-    if (entry_model.url !== 'none' && entry_model.url !== null){
-        const presignedImageUrl = await presignUrl(entry_model.url);
-        if (presignedImageUrl){
-            diary_embed.setImage(presignedImageUrl);
-        }
-    }
+    const diary_embed = await deleteEmbed(entry_model);
+    diary_embed.setFooter(`React ✅ to delete, ❌ to keep.`);
 
     let confirmMessage = await userMessage.channel.send({embeds: [diary_embed]});
     // add reactions
