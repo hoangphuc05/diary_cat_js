@@ -59,7 +59,7 @@ export default {
             return;
         }
 
-        const collector = bot_message.createMessageComponentCollector({filter, componentType: 'BUTTON', time: 300000});
+        const collector = bot_message.createMessageComponentCollector({filter, componentType: 'BUTTON', idle: 300000});
 
         collector.on('collect', async (i) => {
             if (i.customId === "previous"){
@@ -78,7 +78,7 @@ export default {
             i.deferUpdate();
         });
         
-        const emojiCollector = bot_message.createReactionCollector({emojiFilter, time: 300000});
+        const emojiCollector = bot_message.createReactionCollector({emojiFilter, idle: 300000});
 
         emojiCollector.on("collect", async (reaction, user) => {
             if (reaction.emoji.name === '❌'){
