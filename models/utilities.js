@@ -7,7 +7,7 @@ const {db_host, db_username, db_password, db_database, reset_limit, add_limit} =
 export const sequelize = new Sequelize(db_database, db_username, db_password, {
     host: db_host,
     dialect: 'mysql',
-
+    logging: false,
 });
 
 

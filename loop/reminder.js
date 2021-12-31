@@ -44,7 +44,7 @@ export default async (client) => {
     console.log(users[0][0]);
 
     for (const user of users[0]){
-        console.log(user.channel)
+        // console.log(user.channel)
         // select a random remind string
         const askString =  remindString[Math.floor(Math.random() * remindString.length)];
         // build the message by inject user name into the askString
