@@ -14,10 +14,15 @@ export const messageLogger = (command, message, args, error=0) => {
         .addField("Command", command, true)
         .addField("Attached length", `${message.attachments.size}`, true)
 
-    // send embed message
-    client.channels.fetch(log_channel_id).then(channel => {
-        channel.send({embeds: [embed]});
-    });
+    try{
+        // send embed message
+        client.channels.fetch(log_channel_id).then(channel => {
+            channel.send({embeds: [embed]});
+        }).catch(console.error);
+    } catch (error) {
+        console.log(error);
+    }
+    
 }
 
 export const slashLogger = (interaction, error=0) => {
@@ -27,14 +32,22 @@ export const slashLogger = (interaction, error=0) => {
         .setFooter(new Date().toISOString())
         .addField("Command", interaction.commandName, true)
 
-    // send embed message
-    client.channels.fetch(log_channel_id).then(channel => {
-        channel.send({embeds: [embed]});
-    });
+    try{
+        // send embed message
+        client.channels.fetch(log_channel_id).then(channel => {
+            channel.send({embeds: [embed]});
+        }).catch(console.error);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export const generalLogger = (message, error=0) => {
-    client.channels.fetch(log_channel_id).then(channel => {
-        channel.send(message);
-    });
+    try{
+        client.channels.fetch(log_channel_id).then(channel => {
+            channel.send(message);
+        }).catch(console.error);
+    } catch (error) {
+        console.log(error);
+    }
 }

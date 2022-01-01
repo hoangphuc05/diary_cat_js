@@ -68,11 +68,16 @@ client.on('messageCreate', async message =>{
         }
 
     } catch (error) {
-        console.error(error);
-        message.reply('there was an error trying to execute that command!');
+
         try{
-            messageLogger(command, message, args, 1);
-        } catch (error) {}
+            console.error(error);
+            message.reply('there was an error trying to execute that command!');
+            try{
+                messageLogger(command, message, args, 1);
+            } catch (error) {}
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 })
@@ -94,12 +99,19 @@ client.on('interactionCreate', async interaction => {
         await command.execute(interaction);
         slashLogger(interaction);
     } catch (error) {
-        console.error(error);
-        await interaction.reply({
-            content: 'There was an error trying to execute that command!',
-            ephemeral: true
-        });
-        slashLogger(interaction,1);
+
+        // keep the bot going even if there is an error
+        try{
+            console.error(error);
+            await interaction.reply({
+                content: 'There was an error trying to execute that command!',
+                ephemeral: true
+            });
+            slashLogger(interaction,1);
+        } catch (error) {
+            console.error(error);
+        }
+        
     }
 });
 
@@ -122,5 +134,10 @@ client.on("ready", () => {
 
 // Login to Discord with your client's token
 client.login(token);
+
+// handle uncaught exceptions
+process.on('unhandledRejection', error => {
+	console.error('Unhandled promise rejection:', error);
+});
 
 export {client};
