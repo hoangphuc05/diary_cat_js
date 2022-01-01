@@ -41,8 +41,6 @@ export default async (client) => {
             }
         );
 
-    console.log(users[0][0]);
-
     for (const user of users[0]){
         // console.log(user.channel)
         // select a random remind string

@@ -20,7 +20,6 @@ export default {
         // find the last time the user posted
         let last_time = await last_time_db.findOne({where: {id: author}});
         last_time = last_time.time;
-        console.log("last time is:" , last_time);
 
         //check if there's any content in the message
         if (message_content === "" && message.attachments.size === 0){
@@ -34,7 +33,6 @@ export default {
         if (message.attachments.size > 0){
             // loop through the attachments
             for (const [id, attachment] of message.attachments){
-                console.log(attachment);
                 const url = await uploadFile(attachment.url);
                 // create the entry
                 // console.log("url is", url);

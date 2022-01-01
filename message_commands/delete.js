@@ -13,10 +13,10 @@ export default {
 
         //if there's no entry id, send a help message
         if (!entry_id){
-            message.reply(`\`\`\`To delete an entry, navigate to that entries using \`${prefix}read\` and react the entry with ❌, then follow the instruction.\`\`\``);
+            message.reply(`\`dl!delete\` is deprecating soon, please use slash command \`/delete\` instead\`\`\`To delete an entry, navigate to that entries using \`${prefix}read\` and react the entry with ❌, then follow the instruction.\`\`\``);
             return;
         }
-
+        message.reply('`dl!delete` is deprecating soon, please use slash command `/delete` instead');
         // check if the entry exists
         let daily_entry = await daily_db.findOne({where: {id: entry_id, author: author}});
         if (!daily_entry){

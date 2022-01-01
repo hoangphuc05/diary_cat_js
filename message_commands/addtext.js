@@ -20,7 +20,6 @@ export default {
         // find the last time the user posted
         let last_time = await last_time_db.findOne({where: {id: author}});
         last_time = last_time.time;
-        console.log("last time is:" , last_time);
 
         // if last time is too recent, ask for confirmation
         // if (last_time){
@@ -44,7 +43,6 @@ export default {
             }
             // loop through the attachments
             for (const [id, attachment] of message.attachments){
-                console.log(attachment);
                 const url = await uploadFile(attachment.url);
                 // create the entry
                 // console.log("url is", url);
