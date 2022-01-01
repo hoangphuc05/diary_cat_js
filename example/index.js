@@ -62,7 +62,6 @@ client.on('interactionCreate', async interaction => {
     //ignore all interactions that is not slash command
 	if (!interaction.isCommand()) return;
 
-    // console.log("Command name", interaction);
 
 	const command = client.commands.get(interaction.commandName);
 

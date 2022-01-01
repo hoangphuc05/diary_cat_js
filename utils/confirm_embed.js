@@ -41,7 +41,6 @@ export default async (title = "confirm box", message = "Do you want to continue"
         
         // if the user does not react within 1 minute, delete the message and return false
         collector.on('end',  async () => {
-            console.log("end called");
             try {
                 await confirmMessage.delete();
             } catch (error) {
