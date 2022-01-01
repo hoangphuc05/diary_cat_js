@@ -78,7 +78,7 @@ export const addEntry = async (author, message, url, name, channel) => {
             user_reminder.save();
         } // if reminder doesn't exist, create one
         else {
-            const new_reminder = await reminder.create({
+            await reminder.create({
                 id: author,
                 reminded: 0,
                 remind_switch: 1
@@ -88,7 +88,7 @@ export const addEntry = async (author, message, url, name, channel) => {
     else {
         await last_time.create({
             id: author,
-            time: new Date().getTime(),
+            time: Math.floor(new Date().getTime()/1000),
             streak: 1,
             channel: channel
         });
