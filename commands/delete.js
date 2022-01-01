@@ -56,6 +56,11 @@ export default {
         // get the index of the entry
         let index = interaction.options.getInteger("index");
         let bot_message;
+        const filter = i => {
+            // i.deferUpdate();
+            return i.user.id === interaction.user.id;
+            // return true;
+        }
 
         // if there's no index, send help message
         if (!index) {
@@ -76,11 +81,7 @@ export default {
             // interaction.followUp("hi");
 
             // wait for button interaction
-            const filter = i => {
-                // i.deferUpdate();
-                return i.user.id === interaction.user.id;
-                // return true;
-            }
+            
 
             // if no message is sent, return
             if (!bot_message){
@@ -140,6 +141,34 @@ export default {
                     });
                 }
                 
+            });
+        } else {
+
+            // get the entry from the index
+            let dailyEntry = await daily_db.findOne({where: {id: index, author: interaction.user.id}});
+            if (!dailyEntry){
+                interaction.followUp(`Entry with id ${index} not found!`);
+                return;
+            }
+
+            // send confirmation message
+            const deleteConfirmEmbed = await deleteEmbed(dailyEntry);
+            await interaction.reply({embeds: [deleteConfirmEmbed], components: [deleteRow], ephemeral: true});
+            let deleteMessage = await interaction.fetchReply();
+            // i.deferUpdate();
+            
+            const deleteCollector = deleteMessage.createMessageComponentCollector({filter, componentType: 'BUTTON', idle: 60000});
+            deleteCollector.on('collect', async (di) => {
+                if (di.customId === "delete"){
+                    await dailyEntry.destroy();
+                    await di.reply({content:`Entries delete successfully! use /read to view your updated entries.`, ephemeral:true} );
+                    deleteCollector.stop();
+                    return;
+                } else {
+                    await di.reply({content:`Delete cancelled!`, ephemeral:true} );
+                    deleteCollector.stop();
+                    return;
+                }
             });
         }
 
