@@ -15,7 +15,6 @@ export default {
         const author = message.author.id;
         const channel = message.channelId;
         const message_content = message.content.indexOf(' ')===-1?"":message.content.substr(message.content.indexOf(' ') + 1);
-        const current_time = new Date().getTime();
 
 
         //check if there's any content in the message
