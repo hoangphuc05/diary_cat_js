@@ -17,9 +17,6 @@ export default {
         const message_content = message.content.indexOf(' ')===-1?"":message.content.substr(message.content.indexOf(' ') + 1);
         const current_time = new Date().getTime();
 
-        // find the last time the user posted
-        let last_time = await last_time_db.findOne({where: {id: author}});
-        last_time = last_time.time;
 
         //check if there's any content in the message
         if (message_content === "" && message.attachments.size === 0){

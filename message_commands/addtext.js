@@ -17,10 +17,6 @@ export default {
         const message_content = message.content.indexOf(' ')===-1?"":message.content.substr(message.content.indexOf(' ') + 1);
         const current_time = new Date().getTime();
 
-        // find the last time the user posted
-        let last_time = await last_time_db.findOne({where: {id: author}});
-        last_time = last_time.time;
-
         // if last time is too recent, ask for confirmation
         // if (last_time){
         // if confirm is yes, or if last time is normal, continue
