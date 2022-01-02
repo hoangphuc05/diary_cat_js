@@ -92,6 +92,11 @@ export const addEntry = async (author, message, url, name, channel) => {
             streak: 1,
             channel: channel
         });
+        await reminder.create({
+            id: author,
+            reminded: 0,
+            remind_switch: 1
+        });
         streak_value = 1;
     }
 
