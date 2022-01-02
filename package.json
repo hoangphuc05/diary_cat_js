@@ -23,7 +23,7 @@
     "uuid": "^8.3.2"
   },
   "name": "diary-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Diary cat in javascript",
   "repository": "https://github.com/hoangphuc05/diary_cat_js.git",
   "author": "Phuc Cai <chphuc05@gmail.com>",
