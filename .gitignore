@@ -9,8 +9,6 @@ test.js
 *.db
 db_convert/
 
-# key
-key/
 
 # interaction with real file using real token
 real_interaction/

@@ -9,5 +9,9 @@
     "db_password": "database password",
     "db_database": "database name",
     "reset_limit": 216000, // amoung of time streak is reset
-    "add_limit": 64800 // amount of time before new streak is added
+    "add_limit": 64800, // amount of time before new streak is added
+    "invite_link": "Your bot invite link",
+    "feedback_channel_id": "channel for receiving feedback",
+    "log_channel_id": "channel for listening to log",
+    "key_pair_id": "Key pair for cloudfront singing"
 }
