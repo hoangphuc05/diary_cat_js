@@ -23,6 +23,12 @@ export const reminder = r(sequelize, Sequelize.DataTypes);
 import {default as rs} from './remind_string.js';
 export const remind_string = rs(sequelize, Sequelize.DataTypes);
 
+import {default as anm} from './announcement.js';
+export const announcement = anm(sequelize, Sequelize.DataTypes);
+
+import {default as anr} from './announcement_read.js';
+export const announcement_read = anr(sequelize, Sequelize.DataTypes);
+
 // console.log(last_time.findOne({
 //     where: {id:"343046183088029696"}
 // }))
@@ -112,8 +118,27 @@ export const addEntry = async (author, message, url, name, channel) => {
     return streak_value
 }
 
-// Reflect.defineProperty(daily_entry.prototype, 'addEntry',{
-//     value: async function 
-// })
-// export const addEntry = addEntry;
-// module.exports = { daily_entry, last_time, reminder };
+export const getUnreadAnnouncement = async (user) => {
+    // find the latest announcement 
+    // const latest_announcement = await announcement.findOne({
+    //     order: [['id', 'DESC']]
+    // })
+    const latest_announcement = await sequelize.query(`
+        SELECT *
+        FROM diarybot.announcement
+        WHERE NOT EXISTS (
+            SELECT *
+            FROM diarybot.announcement_read
+            WHERE announcement_id = (
+                SELECT id
+                FROM diarybot.announcement
+                ORDER BY id DESC
+                LIMIT 1
+            ) AND user_id = "123"
+        )
+        ORDER BY id DESC
+        LIMIT 1`,{
+            model: announcement,
+            mapToModel: true
+        });
+}
