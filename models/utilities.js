@@ -118,7 +118,7 @@ export const addEntry = async (author, message, url, name, channel) => {
     return streak_value
 }
 
-export const getUnreadAnnouncement = async (user) => {
+export const getUnreadAnnouncement = async (userId) => {
     // find the latest announcement 
     // const latest_announcement = await announcement.findOne({
     //     order: [['id', 'DESC']]
@@ -134,11 +134,14 @@ export const getUnreadAnnouncement = async (user) => {
                 FROM diarybot.announcement
                 ORDER BY id DESC
                 LIMIT 1
-            ) AND user_id = "123"
+            ) AND user_id = :userId
         )
         ORDER BY id DESC
         LIMIT 1`,{
+            replacements: {userId: userId},
             model: announcement,
             mapToModel: true
         });
+
+    return latest_announcement;
 }
