@@ -9,7 +9,6 @@ import fs from 'fs';
 
 //for image checking
 import {readChunk} from 'read-chunk';
-import {fileTypeFromBuffer} from 'file-type'; // https://github.com/sindresorhus/image-type
 import imageType from 'image-type'; // https://github.com/sindresorhus/image-type
 
 
