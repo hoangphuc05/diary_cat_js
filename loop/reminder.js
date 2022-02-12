@@ -1,7 +1,6 @@
 import { reminder, last_time, sequelize, remind_string } from "../models/utilities.js";
 import { generalLogger } from "../utils/logger.js";
-import { Op, QueryTypes  } from "sequelize";
-import Sequelize from 'sequelize';
+
 
 export default async (client) => {
     // get 24 hour ago in unix timestamp

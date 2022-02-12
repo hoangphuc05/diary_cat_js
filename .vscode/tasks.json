@@ -6,7 +6,7 @@
         {
             "label": "Test",
             "type": "shell",
-            "command": "yarn node --experimental-vm-modules $(yarn bin jest)",
+            "command": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
             "problemMatcher": []
         }
     ]
