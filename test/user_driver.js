@@ -27,11 +27,21 @@ class DiscordSelfWrapper {
     async sendTestMessage( message) {
         return new Promise(resolve => {
             this.testChannel.send(message).then(message => {
-                console.log("Sent message: ", message.content);
                 resolve();
             })
         });
-        return await this.testChannel.send(message);
+    }
+
+    async sendImageMessage(message, image_path = "./__mocks__/test.png") {
+        return new Promise((resolve, reject) => {
+            this.testChannel.send(message, {files: [{
+                attachment: image_path,
+                name: "test.png",
+                description: "Test image"
+            }]}).then(message => {
+                resolve();
+            }).catch(error => reject());
+        });
     }
 
     async getNextMessage() {
