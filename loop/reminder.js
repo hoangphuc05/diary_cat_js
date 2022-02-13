@@ -4,7 +4,7 @@ import { generalLogger } from "../utils/logger.js";
 
 export default async (client) => {
     // get 24 hour ago in unix timestamp
-    const remindTime = Math.floor((new Date().getTime() - (24*60*60*1000))/1000);
+    const remindTime = Math.floor((Date.now() - (24*60*60*1000))/1000);
 
     // get all remind string that are enabled
     const remindString = await remind_string.findAll({

@@ -29,7 +29,7 @@ export const presignUrl = async (fileKey) => {
         keypairId: key_pair_id,
         // privateKeyString: keyString,
         privateKeyPath: './key/private_key.pem',
-        expireTime: new Date().getTime() + 1*60*60*1000,
+        expireTime: Date.now() + 1*60*60*1000,
     };
     const signUrl = await cloudFront.getSignedUrl(
         `https://d23rmf6k57cbl6.cloudfront.net/${fileKey}`,

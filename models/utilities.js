@@ -56,7 +56,7 @@ export const addEntry = async (author, message, url, name, channel) => {
             where: {id: author}
         })
         const last_time = user_last_time.time;
-        const current_time = Math.floor(new Date().getTime()/1000);
+        const current_time = Math.floor(Date.now()/1000);
         // console.log("Current time is: " + current_time);
         const time_difference = current_time - last_time;
         // console.log(time_difference > reset_limit) ;
@@ -94,7 +94,7 @@ export const addEntry = async (author, message, url, name, channel) => {
     else {
         await last_time.create({
             id: author,
-            time: Math.floor(new Date().getTime()/1000),
+            time: Math.floor(Date.now()/1000),
             streak: 1,
             channel: channel
         });
@@ -109,7 +109,7 @@ export const addEntry = async (author, message, url, name, channel) => {
     // create the entry
     await daily_entry.create({
         author: author,
-        date: new Date().getTime(),
+        date: Date.now(),
         message: message,
         url: url,
         name: name,
