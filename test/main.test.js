@@ -6,7 +6,7 @@ import {client as realClient} from '../index';
 
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);  
-const { user_token } = require ('./config.json');
+const { user_token } = require ('./config_test.json');
 
 import {jest} from '@jest/globals';
 
