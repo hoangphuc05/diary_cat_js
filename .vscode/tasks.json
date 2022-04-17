@@ -6,7 +6,7 @@
         {
             "label": "Test",
             "type": "shell",
-            "command": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+            "command": "node --experimental-vm-modules node_modules/jest/bin/jest.js --forceExit",
             "problemMatcher": []
         }
     ]

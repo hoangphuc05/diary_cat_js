@@ -24,20 +24,17 @@ beforeAll(done => {
     client.login();
 });
 
-afterAll(() => {
+afterAll((done) => {
     client.client.destroy();
     realClient.destroy();
+    done();
 })
 
 
 
 for (const file of messageTestFiles) {
     const testFile = await import(`./message_tests/${file}`);
-    console.log(testFile.execute);
+    // console.log(testFile.execute);
     testFile.default.execute(client);
 }
 
-
-// test("test main 1", () => {
-//     expect(sum(1,2)).toBe(3);
-// })

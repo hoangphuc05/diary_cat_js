@@ -32,7 +32,7 @@ class DiscordSelfWrapper {
         });
     }
 
-    async sendImageMessage(message, image_path = "./__mocks__/test.png") {
+    async sendImageMessage(message, image_path = "./__mocks__/test.jpg") {
         return new Promise((resolve, reject) => {
             this.testChannel.send(message, {files: [{
                 attachment: image_path,
