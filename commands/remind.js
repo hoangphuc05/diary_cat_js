@@ -9,8 +9,8 @@ export default {
             option.setName("state")
                 .setDescription("Toggle reminder")
                 .setRequired(true)
-                .addChoice("on", 1)
-                .addChoice("off", 0),    
+                .addChoices({name:"on", value:1})
+                .addChoices({name:"off", value:0}),    
         ),
     async execute(interaction) {
         // find the reminder of the user
