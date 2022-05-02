@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import DiscordSelfWrapper from './user_driver';
 import {client as realClient} from '../index';
-
+import { sequelize } from '../models/utilities';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);  
 const { user_token } = require ('./config_test.json');
@@ -27,6 +27,7 @@ beforeAll(done => {
 afterAll((done) => {
     client.client.destroy();
     realClient.destroy();
+    sequelize.close();
     done();
 })
 
