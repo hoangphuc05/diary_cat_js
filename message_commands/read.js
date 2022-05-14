@@ -3,6 +3,7 @@ import build_embed from '../utils/build_read_embed.js';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url); 
 const { token, prefix } = require ('./../config.json');
+import { MessageEmbed } from "discord.js";
 
 export default {
     name: 'read',
