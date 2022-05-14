@@ -47,7 +47,7 @@ export default {
         ).addComponents(
             new MessageButton()
                 .setCustomId("delete")
-                .setEmoji("❌")
+                .setEmoji("🗑️")
                 .setLabel("Delete")
                 .setStyle("DANGER")
         );
@@ -75,7 +75,7 @@ export default {
             let current_daily_index = daily_entries.length - 1;
             let embed = await build_embed(daily_entries[current_daily_index]);
             
-            await interaction.reply({embeds: [embed], components: [readRow]});
+            await interaction.reply({embeds: [embed], components: [readRow], ephemeral:true});
             bot_message = await interaction.fetchReply();
             // console.log("Bot message: ", bot_message);
             // interaction.followUp("hi");
@@ -98,7 +98,7 @@ export default {
                     }
 
                     embed = await build_embed(daily_entries[current_daily_index]);
-                    bot_message.edit({embeds: [embed]});
+                    await interaction.editReply({embeds: [embed]});
                     i.deferUpdate();
                     
                 } else if (i.customId === "next"){
@@ -108,7 +108,7 @@ export default {
                     }
                 
                     embed = await build_embed(daily_entries[current_daily_index]);
-                    bot_message.edit({embeds: [embed]});
+                    await interaction.editReply({embeds: [embed]});
                     i.deferUpdate();
 
                 } else if (i.customId === "delete"){

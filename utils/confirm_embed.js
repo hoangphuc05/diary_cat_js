@@ -4,7 +4,7 @@ export default async (title = "confirm box", message = "Do you want to continue"
     const embed = new MessageEmbed()
         .setTitle(title)
         .setDescription(message)
-        .setFooter(footer)
+        .setFooter({text:footer})
         .setTimestamp()
     
     let confirmMessage = await userMessage.channel.send({embeds: [embed]});

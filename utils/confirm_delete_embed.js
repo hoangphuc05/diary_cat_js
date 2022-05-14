@@ -6,7 +6,7 @@ import deleteEmbed from "./build_delete_embed.js";
 
 export default async (entry_model, userMessage) => {
     const diary_embed = await deleteEmbed(entry_model);
-    diary_embed.setFooter(`React ✅ to delete, ❌ to keep.`);
+    diary_embed.setFooter({text:`React ✅ to delete, ❌ to keep.`});
 
     let confirmMessage = await userMessage.channel.send({embeds: [diary_embed]});
     // add reactions

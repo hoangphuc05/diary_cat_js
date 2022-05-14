@@ -25,7 +25,7 @@ const addEntry = async (author, message, url, name, channel) => {
     // if there's a streak, check if it need to be reset by the time
     if (streak){
         const last_time = streak.time;
-        const current_time = new Date().getTime();
+        const current_time = Date.now();
         const time_difference = current_time - last_time;
         console.log(time_difference > reset_limit) ;
         // if the difference is greater than the reset limit, reset the streak and set the current time
@@ -47,7 +47,7 @@ const addEntry = async (author, message, url, name, channel) => {
     else {
         await last_time.create({
             id: author,
-            time: new Date().getTime(),
+            time: Date.now(),
             streak: 1,
             channel: channel
         });
@@ -57,7 +57,7 @@ const addEntry = async (author, message, url, name, channel) => {
     // create the entry
     await daily_entry.create({
         author: author,
-        date: new Date().getTime(),
+        date: Date.now(),
         message: message,
         url: url,
         name: name,

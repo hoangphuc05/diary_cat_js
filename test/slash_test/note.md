@@ -1,0 +1,1 @@
+https://github.com/Merubokkusu/Discord-S.C.U.M/blob/7a544cac0dcdb0ef7b3a22249f5386908df85bda/discum/interactions/slashcommands.py#L19

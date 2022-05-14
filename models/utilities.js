@@ -23,6 +23,12 @@ export const reminder = r(sequelize, Sequelize.DataTypes);
 import {default as rs} from './remind_string.js';
 export const remind_string = rs(sequelize, Sequelize.DataTypes);
 
+import {default as anm} from './announcement.js';
+export const announcement = anm(sequelize, Sequelize.DataTypes);
+
+import {default as anr} from './announcement_read.js';
+export const announcement_read = anr(sequelize, Sequelize.DataTypes);
+
 // console.log(last_time.findOne({
 //     where: {id:"343046183088029696"}
 // }))
@@ -50,7 +56,7 @@ export const addEntry = async (author, message, url, name, channel) => {
             where: {id: author}
         })
         const last_time = user_last_time.time;
-        const current_time = Math.floor(new Date().getTime()/1000);
+        const current_time = Math.floor(Date.now()/1000);
         // console.log("Current time is: " + current_time);
         const time_difference = current_time - last_time;
         // console.log(time_difference > reset_limit) ;
@@ -88,7 +94,7 @@ export const addEntry = async (author, message, url, name, channel) => {
     else {
         await last_time.create({
             id: author,
-            time: Math.floor(new Date().getTime()/1000),
+            time: Math.floor(Date.now()/1000),
             streak: 1,
             channel: channel
         });
@@ -103,7 +109,7 @@ export const addEntry = async (author, message, url, name, channel) => {
     // create the entry
     await daily_entry.create({
         author: author,
-        date: new Date().getTime(),
+        date: Date.now(),
         message: message,
         url: url,
         name: name,
@@ -112,8 +118,30 @@ export const addEntry = async (author, message, url, name, channel) => {
     return streak_value
 }
 
-// Reflect.defineProperty(daily_entry.prototype, 'addEntry',{
-//     value: async function 
-// })
-// export const addEntry = addEntry;
-// module.exports = { daily_entry, last_time, reminder };
+export const getUnreadAnnouncement = async (userId) => {
+    // find the latest announcement 
+    // const latest_announcement = await announcement.findOne({
+    //     order: [['id', 'DESC']]
+    // })
+    const latest_announcement = await sequelize.query(`
+        SELECT *
+        FROM diarybot.announcement
+        WHERE NOT EXISTS (
+            SELECT *
+            FROM diarybot.announcement_read
+            WHERE announcement_id = (
+                SELECT id
+                FROM diarybot.announcement
+                ORDER BY id DESC
+                LIMIT 1
+            ) AND user_id = :userId
+        )
+        ORDER BY id DESC
+        LIMIT 1`,{
+            replacements: {userId: userId},
+            model: announcement,
+            mapToModel: true
+        });
+
+    return latest_announcement;
+}
