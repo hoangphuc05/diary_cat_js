@@ -8,9 +8,9 @@ export const messageLogger = (command, message, args, error=0) => {
     // build embed message
     const embed = new MessageEmbed()
         // .setAuthor({name:`${message.author.id}`, iconURL:message.author.avatarURL()})
-        .setAuthor(`${message.author.id}`, message.author.avatarURL())
+        .setAuthor({name: `${message.author.id}`, iconURL: message.author.avatarURL()})
         .setTitle(error==1?`Message command Error!`:`Message command`)
-        .setFooter(new Date().toISOString())
+        .setFooter({text: new Date().toISOString()})
         .addField("Command", command, true)
         .addField("Attached length", `${message.attachments.size}`, true)
 
@@ -27,9 +27,9 @@ export const messageLogger = (command, message, args, error=0) => {
 
 export const slashLogger = (interaction, error=0) => {
     const embed = new MessageEmbed()
-        .setAuthor(`${interaction.user.id}`, interaction.user.avatarURL())
+        .setAuthor({name:`${interaction.user.id}`, iconURL: interaction.user.avatarURL()})
         .setTitle(error==1?`Slash command Error!`:`Slash command`)
-        .setFooter(new Date().toISOString())
+        .setFooter({text: new Date().toISOString()})
         .addField("Command", interaction.commandName, true)
 
     try{

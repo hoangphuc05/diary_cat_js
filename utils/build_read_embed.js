@@ -6,7 +6,7 @@ export default async (entry_model) => {
     const diary_embed = new MessageEmbed()
         // .setTitle(`<t:${Math.floor(parseInt(entry_model.date)/1000)}:D>`)
         // .setURL(entry_model.url)
-        .setFooter(`${entry_model.name}`)
+        .setFooter({text:`${entry_model.name}`})
     
     // check if string is unix timestamp
     if (!entry_model.date.toString().includes('-')){
