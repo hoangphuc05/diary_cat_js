@@ -1,6 +1,7 @@
 import {last_time as last_time_db, addEntry} from './../models/utilities.js';
 import { uploadFile } from './../utils/fileUploader.js';
 import confirm_embed from '../utils/confirm_embed.js';
+import { MessageEmbed } from "discord.js";
 
 
 export default {
@@ -8,6 +9,13 @@ export default {
     description: 'Add a new entries',
     aliases: ['addanyway'],
     async execute(message, args) {
+
+        // send deprecation notice
+        const embed = new MessageEmbed()
+            .setTitle("Deprecation Notice")
+            .setDescription("This command is going to be deprecated, please use the [slash command](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ) `add` instead");
+
+        message.channel.send({embeds: [embed]});
         
         //send typing indicator
         message.channel.sendTyping();
