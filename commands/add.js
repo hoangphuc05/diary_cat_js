@@ -19,8 +19,10 @@ export default {
         
         const entryValue = interaction.options.getString('text');
         const image = interaction.options.getAttachment('image');
-        console.log("options: ", interaction.options);
-        console.log("image: ", image?.url);
+        if (image == null || entryValue == null) {
+            await interaction.reply("Something went wrong, please try again or report the error");
+            return;
+        }
 
         const url = await uploadFile(image.url);
         const streak_value = await addEntry(interaction.user.id, entryValue, url, interaction.user.username, interaction.channelId);
