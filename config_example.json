@@ -1,5 +1,6 @@
 {
     "prefix": "dl!", // bot prefix
+    "self_id": "your_bot_id",
     "guildId": "guildId for testing",
     "clientId": "your client id",
     "token": "bot token here",

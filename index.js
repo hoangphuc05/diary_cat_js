@@ -3,9 +3,10 @@ import fs from 'fs';
 import { Client, Intents, Collection } from 'discord.js';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url); 
-const { token, prefix } = require ('./config.json');
+const { token, prefix, self_id } = require ('./config.json');
 import remindLoop from './loop/reminder.js';
 import { messageLogger, slashLogger } from './utils/logger.js';
+import { MessageEmbed } from "discord.js";
 
 // Create a new client instance
 const myIntents = new Intents();
@@ -51,11 +52,28 @@ for (const file of eventFiles) {
 
 // handle normal message because Discord is slow af
 client.on('messageCreate', async message =>{
-    
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-    const args = message.content.slice(prefix.length).trim().split(' ');
+    if ( (!message.content.startsWith(`<@${self_id}>`) && !message.content.startsWith(prefix)) || message.author.bot) return;
+    
+    
+
+    let prefix_length = message.content.startsWith(prefix)? prefix.length : `<@${self_id}>`.length;
+    
+    const args = message.content.slice(prefix_length).trim().split(' ');
+
     const command = args.shift().toLocaleLowerCase(); //get the command in the first element and get rid of it from the args array
+
+    //deprecation notice
+    if (message.content.startsWith(prefix)) {
+        // send deprecation notice
+        const embed = new MessageEmbed()
+        .setTitle("Deprecation Notice")
+        .setDescription(`Calling this bot by prefix \`dl!\` is deprecated, please mention the bot with your command instead\n Example: <@${self_id}> ${command}`);
+
+    message.channel.send({embeds: [embed]});
+    return;
+   }
+
     if (!client.messageCommands.has(command)) return;
 
     try {
