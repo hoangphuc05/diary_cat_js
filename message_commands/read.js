@@ -9,12 +9,6 @@ export default {
     name: 'read',
     description: 'Read diary entries',
     async execute(message, args) {
-
-        // send deprecation notice
-        const deprecated_embed = new MessageEmbed()
-            .setTitle("Deprecation Notice")
-            .setDescription("This command is deprecated, please use the [slash command](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ) `read` instead");
-
         message.channel.send({embeds: [deprecated_embed]});
 
         const author = message.author.id;

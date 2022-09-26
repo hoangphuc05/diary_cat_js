@@ -10,11 +10,6 @@ export default {
     aliases: ['addanyway'],
     async execute(message, args) {
 
-        // send deprecation notice
-        const embed = new MessageEmbed()
-            .setTitle("Deprecation Notice")
-            .setDescription("This command is deprecating, please use the [slash command](https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ) `add` instead");
-
         message.channel.send({embeds: [embed]});
         //send typing indicator
         message.channel.sendTyping();
