@@ -4,6 +4,6 @@ export default {
     once: true,
     execute(client) {
         console.log('Ready!');
-        client.user.setActivity(`dl!help or /help to get started`);
+        client.user.setActivity(`/help or mention the bot with help command to get started`);
     }
 }
