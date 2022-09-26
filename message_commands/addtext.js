@@ -8,9 +8,6 @@ export default {
     description: 'Add a new entries',
     aliases: ['addtextanyway'],
     async execute(message, args) {
-
-        message.channel.send({embeds: [embed]});
-
         //send typing indicator
         message.channel.sendTyping();
 

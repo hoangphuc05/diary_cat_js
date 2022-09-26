@@ -9,8 +9,6 @@ export default {
     name: 'read',
     description: 'Read diary entries',
     async execute(message, args) {
-        message.channel.send({embeds: [deprecated_embed]});
-
         const author = message.author.id;
         
         let daily_entries = await daily_db.findAll({where: {author: author}});

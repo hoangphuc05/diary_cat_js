@@ -10,7 +10,6 @@ export default {
     aliases: ['addanyway'],
     async execute(message, args) {
 
-        message.channel.send({embeds: [embed]});
         //send typing indicator
         message.channel.sendTyping();
 
