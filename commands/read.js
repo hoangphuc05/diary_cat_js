@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import {daily_entry as daily_db} from './../models/utilities.js';
 import build_embed from '../utils/build_read_embed.js';
 
@@ -17,13 +17,13 @@ export default {
                     .setCustomId('previous')
                     .setEmoji('⬅')
                     .setLabel('Previous')
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
             ).addComponents(
                 new ButtonBuilder()
                     .setCustomId('next')
                     .setEmoji('➡')
                     .setLabel('Next')
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
             );
 
         // find all entries from that user
@@ -59,7 +59,7 @@ export default {
             return;
         }
 
-        const collector = bot_message.createMessageComponentCollector({filter, componentType: 'BUTTON', idle: 300000});
+        const collector = bot_message.createMessageComponentCollector({filter, idle: 300000});
 
         collector.on('collect', async (i) => {
             if (i.customId === "previous"){

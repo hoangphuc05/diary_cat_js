@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { ActionRowBuilder, ButtonBuilder } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from "discord.js";
 import {daily_entry as daily_db, daily_entry} from './../models/utilities.js';
 import deleteEmbed from './../utils/build_delete_embed.js'
 import build_embed from '../utils/build_read_embed.js';
@@ -22,13 +22,13 @@ export default {
                     .setCustomId("delete")
                     .setEmoji("🗑️")
                     .setLabel("Delete")
-                    .setStyle("DANGER")
+                    .setStyle(ButtonStyle.Danger)
             ).addComponents(
                 new ButtonBuilder()
                     .setCustomId("cancel")
                     .setEmoji("❌")
                     .setLabel("Cancel")
-                    .setStyle("PRIMARY")
+                    .setStyle(ButtonStyle.Primary)
             );
         
         const readRow = new ActionRowBuilder()
@@ -37,19 +37,19 @@ export default {
                 .setCustomId('previous')
                 .setEmoji('⬅')
                 .setLabel('Previous')
-                .setStyle('PRIMARY')
+                .setStyle(ButtonStyle.Primary)
         ).addComponents(
             new ButtonBuilder()
                 .setCustomId('next')
                 .setEmoji('➡')
                 .setLabel('Next')
-                .setStyle('PRIMARY')
+                .setStyle(ButtonStyle.Primary)
         ).addComponents(
             new ButtonBuilder()
                 .setCustomId("delete")
                 .setEmoji("🗑️")
                 .setLabel("Delete")
-                .setStyle("DANGER")
+                .setStyle(ButtonStyle.Danger)
         );
 
 
@@ -88,7 +88,7 @@ export default {
                 return;
             }
 
-            const collector = bot_message.createMessageComponentCollector({filter, componentType: 'BUTTON', idle: 60000});
+            const collector = bot_message.createMessageComponentCollector({filter, idle: 60000});
 
             collector.on('collect', async (i) => {
                 if (i.customId === "previous"){
@@ -126,7 +126,7 @@ export default {
                     let deleteMessage = await i.fetchReply();
                     // i.deferUpdate();
                     
-                    const deleteCollector = deleteMessage.createMessageComponentCollector({filter, componentType: 'BUTTON', idle: 60000});
+                    const deleteCollector = deleteMessage.createMessageComponentCollector({filter, idle: 60000});
                     deleteCollector.on('collect', async (di) => {
                         if (di.customId === "delete"){
                             await dailyEntry.destroy();
@@ -157,7 +157,7 @@ export default {
             let deleteMessage = await interaction.fetchReply();
             // i.deferUpdate();
             
-            const deleteCollector = deleteMessage.createMessageComponentCollector({filter, componentType: 'BUTTON', idle: 60000});
+            const deleteCollector = deleteMessage.createMessageComponentCollector({filter, idle: 60000});
             deleteCollector.on('collect', async (di) => {
                 if (di.customId === "delete"){
                     await dailyEntry.destroy();
