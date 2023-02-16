@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageActionRow, MessageButton } from 'discord.js';
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 import {daily_entry as daily_db} from './../models/utilities.js';
 import build_embed from '../utils/build_read_embed.js';
 
@@ -11,15 +11,15 @@ export default {
     async execute(interaction) {
 
         // build 2 interactive buttons
-        const row = new MessageActionRow()
+        const row = new ActionRowBuilder()
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId('previous')
                     .setEmoji('⬅')
                     .setLabel('Previous')
                     .setStyle('PRIMARY')
             ).addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId('next')
                     .setEmoji('➡')
                     .setLabel('Next')

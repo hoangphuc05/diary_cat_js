@@ -1,7 +1,7 @@
-import { MessageEmbed } from "discord.js"
+import { EmbedBuilder } from "discord.js"
 
 export default async (title = "confirm box", message = "Do you want to continue", footer="Confirm box", userMessage) => {
-    const embed = new MessageEmbed()
+    const embed = new EmbedBuilder()
         .setTitle(title)
         .setDescription(message)
         .setFooter({text:footer})

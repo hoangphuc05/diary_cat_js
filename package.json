@@ -9,7 +9,7 @@
     "aws-cloudfront-sign": "^2.2.0",
     "axios": "^0.26.1",
     "discord-api-types": "^0.31.2",
-    "discord.js": "https://github.com/hoangphuc05/discord.js.git",
+    "discord.js": "^14.5.0",
     "dotenv": "^10.0.0",
     "eslint": "^8.5.0",
     "file-type": "^17.0.2",

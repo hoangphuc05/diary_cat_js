@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { MessageActionRow, MessageButton } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder } from "discord.js";
 import {daily_entry as daily_db, daily_entry} from './../models/utilities.js';
 import deleteEmbed from './../utils/build_delete_embed.js'
 import build_embed from '../utils/build_read_embed.js';
@@ -16,36 +16,36 @@ export default {
     async execute(interaction) {
 
         // build 2 interactive buttons
-        const deleteRow = new MessageActionRow()
+        const deleteRow = new ActionRowBuilder()
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId("delete")
                     .setEmoji("🗑️")
                     .setLabel("Delete")
                     .setStyle("DANGER")
             ).addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setCustomId("cancel")
                     .setEmoji("❌")
                     .setLabel("Cancel")
                     .setStyle("PRIMARY")
             );
         
-        const readRow = new MessageActionRow()
+        const readRow = new ActionRowBuilder()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('previous')
                 .setEmoji('⬅')
                 .setLabel('Previous')
                 .setStyle('PRIMARY')
         ).addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId('next')
                 .setEmoji('➡')
                 .setLabel('Next')
                 .setStyle('PRIMARY')
         ).addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setCustomId("delete")
                 .setEmoji("🗑️")
                 .setLabel("Delete")

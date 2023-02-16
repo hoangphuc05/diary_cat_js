@@ -1,4 +1,4 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { SlashCommandBuilder } from "discord.js";
 import { addEntry } from "../models/utilities.js";
 import { uploadFile } from './../utils/fileUploader.js';
 

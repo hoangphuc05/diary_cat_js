@@ -1,9 +1,9 @@
-import { MessageEmbed } from "discord.js"
+import { EmbedBuilder } from "discord.js"
 import {DateTime} from 'luxon';
 import { presignUrl } from "./presignUrl.js";
 
 export default async (entry_model) => {
-    const diary_embed = new MessageEmbed()
+    const diary_embed = new EmbedBuilder()
         // .setTitle(`<t:${Math.floor(parseInt(entry_model.date)/1000)}:D>`)
         // .setURL(entry_model.url)
         .setFooter({text:`${entry_model.name}`})
@@ -19,6 +19,7 @@ export default async (entry_model) => {
     // get presign url and set it as url
     if (entry_model.url !== 'none' && entry_model.url !== null){
         const presignedImageUrl = await presignUrl(entry_model.url);
+        console.log(presignedImageUrl);
         if (presignedImageUrl){
             diary_embed.setImage(presignedImageUrl);
         }
@@ -27,7 +28,7 @@ export default async (entry_model) => {
     // divide the message into chunks of 1023 characters
     const message_chunks = entry_model.message==""? []:entry_model.message.match(/.{1,1023}/g); // if there's no message, then return empty array
     for (let i = 0; i < message_chunks.length; i++){
-        diary_embed.addField(`Note ${i+1}`, `${message_chunks[i]}`);
+        diary_embed.addFields({name: `Note ${i+1}`, value: `${message_chunks[i]}`});
     }
 
     return diary_embed;

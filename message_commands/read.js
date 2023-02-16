@@ -3,7 +3,6 @@ import build_embed from '../utils/build_read_embed.js';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url); 
 const { token, prefix } = require ('./../config.json');
-import { MessageEmbed } from "discord.js";
 
 export default {
     name: 'read',
@@ -19,7 +18,7 @@ export default {
         let current_daily_index = daily_entries.length - 1;
         let embed = await build_embed(daily_entries[current_daily_index]);
         let botMessage = await message.channel.send({embeds: [embed]});
-
+        console.log()
         // add reactions
         botMessage.react('⬅️');
         botMessage.react('➡️');

@@ -4,7 +4,6 @@ const require = createRequire(import.meta.url);
 const { token, prefix } = require ('./../config.json');
 import confirm_delete_embed from "../utils/confirm_delete_embed.js";
 import { s3Delete } from "../utils/aws.js";
-import { MessageEmbed } from "discord.js";
 
 export default {
     name: 'delete',

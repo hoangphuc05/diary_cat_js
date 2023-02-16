@@ -1,8 +1,6 @@
 import {last_time as last_time_db, addEntry} from './../models/utilities.js';
 import { uploadFile } from './../utils/fileUploader.js';
 import confirm_embed from '../utils/confirm_embed.js';
-import { MessageEmbed } from "discord.js";
-
 
 export default {
     name: 'add',

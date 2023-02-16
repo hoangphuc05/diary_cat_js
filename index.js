@@ -1,16 +1,15 @@
 // Require the necessary discord.js classes
 import fs from 'fs';
-import { Client, Intents, Collection } from 'discord.js';
+import { Client, GatewayIntentBits, Partials , Collection } from 'discord.js';
 import { createRequire } from "module";
 const require = createRequire(import.meta.url); 
 const { token, prefix, self_id } = require ('./config.json');
 import remindLoop from './loop/reminder.js';
 import { messageLogger, slashLogger } from './utils/logger.js';
-import { MessageEmbed } from "discord.js";
+import { EmbedBuilder } from "discord.js";
 
 // Create a new client instance
-const myIntents = new Intents();
-myIntents.add([Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS, Intents.FLAGS.DIRECT_MESSAGES]);
+const myIntents = [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.DirectMessages, GatewayIntentBits.DirectMessageReactions];
 const client = new Client({ intents: myIntents });
 
 client.commands = new Collection();
@@ -66,7 +65,7 @@ client.on('messageCreate', async message =>{
     //deprecation notice
     if (message.content.startsWith(prefix)) {
         // send deprecation notice
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
         .setTitle("Deprecation Notice")
         .setDescription(`Calling this bot by prefix \`dl!\` is deprecated, please mention the bot with your command instead\n Example: <@${self_id}> ${command}`);
 

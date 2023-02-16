@@ -2,7 +2,6 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const helpMessage = require("../help.json");
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageActionRow, MessageButton } from 'discord.js';
 
 export default {
     data: new SlashCommandBuilder()
